@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->string('title', 200);
-            $table->text('content');
-            $table->string('slug', 255);
-            $table->timestamps();
+            $table->unsignedBigInteger('type_id')->nullable()->default(1)->after('id');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
         });
     }
 
