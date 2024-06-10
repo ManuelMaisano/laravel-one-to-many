@@ -9,16 +9,15 @@ use Illuminate\Support\Str;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'slug'];
-
-    public static function generateSlug($title)
+    protected $fillable=['name','slug'];
+    public static function generateSlug($name)
     {
-        $slug = Str::slug($title, '-');
-        $count = 1;
-        while (Project::where('slug', $slug)->first()) {
-            $slug = Str::of($title)->slug('-') . "-{$count}";
-            $count++;
-        }
+        $slug = Str::slug($name, '-');
+
         return $slug;
+    }
+
+    public function projects(){
+        return $this->hasMany(Project::class);
     }
 }
